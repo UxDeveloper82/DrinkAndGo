@@ -20,7 +20,8 @@ namespace DrinkAndGo.Controllers
         }
         public ViewResult List() 
         {
-        
+            var drinks = _drinkRepository.Drinks;
+            return View(drinks);
         }
     }
 }

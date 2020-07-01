@@ -29,18 +29,22 @@ namespace DrinkAndGo
         {
             services.AddTransient<IDrinkRepository, MockDrinkRepository>();
             services.AddTransient<ICategoryRepository, MockCategoryRepository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseStaticFiles();
-            app.UseSession();
-            app.UseMvc();
+            app.UseAuthentication();
+
+            app.UseMvcWithDefaultRoute();
 
         }
     }
